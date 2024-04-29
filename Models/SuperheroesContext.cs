@@ -94,6 +94,7 @@ public partial class SuperheroesContext : DbContext
             entity
                 .HasNoKey()
                 .ToTable("hero_attribute");
+            entity.HasKey(entity => new { entity.HeroId , entity.AttributeId });
 
             entity.Property(e => e.AttributeId)
                 .HasDefaultValueSql("NULL")
@@ -115,6 +116,7 @@ public partial class SuperheroesContext : DbContext
             entity
                 .HasNoKey()
                 .ToTable("hero_power");
+            entity.HasKey(entity => new { entity.HeroId , entity.PowerId });
 
             entity.Property(e => e.HeroId)
                 .HasDefaultValueSql("NULL")

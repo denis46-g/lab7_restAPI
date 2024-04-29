@@ -125,3 +125,4 @@ C:\Users\Acer\Desktop\magistry 1 course\2 semester\ServerProgramming\Practice\Re
 C:\Users\Acer\Desktop\magistry 1 course\2 semester\ServerProgramming\Practice\RestAPI\obj\Debug\net8.0\RestAPI.pdb
 C:\Users\Acer\Desktop\magistry 1 course\2 semester\ServerProgramming\Practice\RestAPI\obj\Debug\net8.0\RestAPI.genruntimeconfig.cache
 C:\Users\Acer\Desktop\magistry 1 course\2 semester\ServerProgramming\Practice\RestAPI\obj\Debug\net8.0\ref\RestAPI.dll
+C:\Users\Acer\Desktop\magistry 1 course\2 semester\ServerProgramming\Practice\RestAPI\obj\Debug\net8.0\RestAPI.sourcelink.json
