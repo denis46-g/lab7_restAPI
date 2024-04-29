@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace RestAPI.Controllers
 {
@@ -28,12 +30,27 @@ namespace RestAPI.Controllers
         [HttpGet("{id}", Name = "GetSuperheroById")]
         public async Task<ActionResult<Superhero>> Get(int id)
         {
-            var superhero = await _superheroesContext.Superheroes.FindAsync(id);
+            /*var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };*/
+
+            var superhero = await _superheroesContext.Superheroes
+        .Include(s => s.Alignment)
+        /*.Include(s => s.EyeColour)
+        .Include(s => s.Gender)
+        .Include(s => s.HairColour)
+        .Include(s => s.Publisher)
+        .Include(s => s.Race)
+        .Include(s => s.SkinColour)*/
+        .FirstOrDefaultAsync(s => s.Id == id);
 
             if (superhero == null)
                 return new NotFoundResult();
 
-            return superhero;
+            //var serializedSuperhero = JsonSerializer.Serialize(superhero, options);
+
+            return new OkObjectResult(superhero);
         }
 
         [HttpPost(Name = "InsertSuperhero")]
