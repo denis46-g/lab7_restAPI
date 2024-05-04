@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 using System.Security.Cryptography;
@@ -31,12 +32,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetHeroPowers")]
         public async Task<ActionResult<IEnumerable<HeroPower>>> Get()
         {
             return await _superheroesContext.HeroPowers.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{hid}/{pid}", Name = "GetHeroPowerById")]
         public async Task<ActionResult<HeroPower>> Get(int hid, int pid)
         {
@@ -48,6 +55,9 @@ namespace RestAPI.Controllers
             return heropower;
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertHeroPower")]
         public async Task<ActionResult<HeroPower>> Post(HeroPower heropower)
         {
@@ -60,6 +70,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(heropower);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdateHeroPower")]
         public async Task<ActionResult<HeroPower>> Put(HeroPower heropower)
         {
@@ -77,6 +90,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(heropower);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{hid}/{pid}", Name = "DeleteHeroPower")]
         public async Task<ActionResult<HeroPower>> Delete(int hid, int pid)
         {

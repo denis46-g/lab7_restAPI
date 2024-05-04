@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "m3iPKM7tm4DrbOcums1uUCLB/MKhjDDSg7XCVbyi0T8=",
+  "Hash": "6MkgLI/z/W2Z3oDexG5+hrNHgej6X8qpocXVzxReBxo=",
   "Source": "RestAPI",
   "BasePath": "_content/RestAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "RestAPI\\wwwroot",
+      "Source": "RestAPI",
+      "ContentRoot": "C:\\Users\\Acer\\Desktop\\magistry 1 course\\2 semester\\ServerProgramming\\Practice\\RestAPI\\wwwroot\\",
+      "BasePath": "_content/RestAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Acer\\Desktop\\magistry 1 course\\2 semester\\ServerProgramming\\Practice\\RestAPI\\wwwroot\\index.html",
+      "SourceId": "RestAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Acer\\Desktop\\magistry 1 course\\2 semester\\ServerProgramming\\Practice\\RestAPI\\wwwroot\\",
+      "BasePath": "_content/RestAPI",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
 }

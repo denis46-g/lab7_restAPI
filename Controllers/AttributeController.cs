@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 
@@ -18,12 +19,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetAttributes")]
         public async Task<ActionResult<IEnumerable<Models.Attribute>>> Get()
         {
             return await _superheroesContext.Attributes.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{id}", Name = "GetAttributeById")]
         public async Task<ActionResult<Models.Attribute>> Get(int id)
         {
@@ -35,6 +42,9 @@ namespace RestAPI.Controllers
             return attribute;
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertAttribute")]
         public async Task<ActionResult<Models.Attribute>> Post(Models.Attribute attribute)
         {
@@ -49,6 +59,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(attribute);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdateAttribute")]
         public async Task<ActionResult<Models.Attribute>> Put(Models.Attribute attribute)
         {
@@ -66,6 +79,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(attribute);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{id}", Name = "DeleteAttribute")]
         public async Task<ActionResult<Models.Attribute>> Delete(int id)
         {

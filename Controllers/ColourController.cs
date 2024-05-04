@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 using System;
@@ -20,12 +21,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetColours")]
         public async Task<ActionResult<IEnumerable<Colour>>> Get()
         {
             return await _superheroesContext.Colours.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{id}", Name = "GetColourById")]
         public async Task<ActionResult<Colour>> Get(int id)
         {
@@ -37,6 +44,9 @@ namespace RestAPI.Controllers
             return colour;
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertColour")]
         public async Task<ActionResult<Colour>> Post(Colour colour)
         {
@@ -51,6 +61,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(colour);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdateColour")]
         public async Task<ActionResult<Colour>> Put(Colour colour)
         {
@@ -68,6 +81,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(colour);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{id}", Name = "DeleteColour")]
         public async Task<ActionResult<Colour>> Delete(int id)
         {

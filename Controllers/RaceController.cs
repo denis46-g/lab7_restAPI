@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 
@@ -18,12 +19,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetRaces")]
         public async Task<ActionResult<IEnumerable<Race>>> Get()
         {
             return await _superheroesContext.Races.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{id}", Name = "GetRaceById")]
         public async Task<ActionResult<Race>> Get(int id)
         {
@@ -35,6 +42,9 @@ namespace RestAPI.Controllers
             return race;
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertRace")]
         public async Task<ActionResult<Race>> Post(Race race)
         {
@@ -49,6 +59,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(race);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdateRace")]
         public async Task<ActionResult<Race>> Put(Race race)
         {
@@ -66,6 +79,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(race);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{id}", Name = "DeleteRace")]
         public async Task<ActionResult<Race>> Delete(int id)
         {

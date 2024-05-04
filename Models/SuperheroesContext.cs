@@ -35,6 +35,8 @@ public partial class SuperheroesContext : DbContext
 
     public virtual DbSet<Superpower> Superpowers { get; set; }
 
+    public virtual DbSet<Person> AuthPersons { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlite("DataSource=Database\\\\superheroes.db;");
@@ -220,6 +222,18 @@ public partial class SuperheroesContext : DbContext
             entity.Property(e => e.PowerName)
                 .HasDefaultValueSql("NULL")
                 .HasColumnName("power_name");
+        });
+
+        modelBuilder.Entity<Person>(entity =>
+        {
+            entity.HasNoKey().ToTable("auth_person");
+
+            entity.Property(e => e.Login)
+                .HasColumnName("login");
+            entity.Property(e => e.Password)
+                .HasColumnName("password");
+            entity.Property(e => e.Role)
+                .HasColumnName("role");
         });
 
         OnModelCreatingPartial(modelBuilder);

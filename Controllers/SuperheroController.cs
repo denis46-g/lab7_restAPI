@@ -4,6 +4,7 @@ using RestAPI.Models;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestAPI.Controllers
 {
@@ -21,12 +22,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetSuperheroes")]
         public async Task<ActionResult<IEnumerable<Superhero>>> Get()
         {
             return await _superheroesContext.Superheroes.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{id}", Name = "GetSuperheroById")]
         public async Task<ActionResult<Superhero>> Get(int id)
         {
@@ -53,6 +60,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(superhero);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertSuperhero")]
         public async Task<ActionResult<Superhero>> Post(Superhero superhero)
         {
@@ -90,6 +100,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(superhero);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdateSuperhero")]
         public async Task<ActionResult<Superhero>> Put(Superhero superhero)
         {
@@ -107,6 +120,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(superhero);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{id}", Name = "DeleteSuperhero")]
         public async Task<ActionResult<Superhero>> Delete(int id)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 
@@ -18,12 +19,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetSuperpowers")]
         public async Task<ActionResult<IEnumerable<Superpower>>> Get()
         {
             return await _superheroesContext.Superpowers.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{id}", Name = "GetSuperpowerById")]
         public async Task<ActionResult<Superpower>> Get(int id)
         {
@@ -35,6 +42,9 @@ namespace RestAPI.Controllers
             return superpower;
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertSuperpower")]
         public async Task<ActionResult<Superpower>> Post(Superpower superpower)
         {
@@ -49,6 +59,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(superpower);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdateSuperpower")]
         public async Task<ActionResult<Superpower>> Put(Superpower superpower)
         {
@@ -66,6 +79,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(superpower);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{id}", Name = "DeleteSuperpower")]
         public async Task<ActionResult<Superpower>> Delete(int id)
         {

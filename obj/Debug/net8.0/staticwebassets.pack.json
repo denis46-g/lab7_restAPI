@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Acer\\Desktop\\magistry 1 course\\2 semester\\ServerProgramming\\Practice\\RestAPI\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.RestAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.RestAPI.props",
+      "PackagePath": "build\\RestAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.RestAPI.props",
+      "PackagePath": "buildMultiTargeting\\RestAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.RestAPI.props",
+      "PackagePath": "buildTransitive\\RestAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

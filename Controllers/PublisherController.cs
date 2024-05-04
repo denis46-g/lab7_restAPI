@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestAPI.Models;
 using System.Drawing;
@@ -19,12 +20,18 @@ namespace RestAPI.Controllers
             _superheroesContext = superheroesContext;
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet(Name = "GetPublishers")]
         public async Task<ActionResult<IEnumerable<Publisher>>> Get()
         {
             return await _superheroesContext.Publishers.ToListAsync();
         }
 
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpGet("{id}", Name = "GetPublisherById")]
         public async Task<ActionResult<Publisher>> Get(int id)
         {
@@ -36,6 +43,9 @@ namespace RestAPI.Controllers
             return publisher;
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPost(Name = "InsertPublisher")]
         public async Task<ActionResult<Publisher>> Post(Publisher publisher)
         {
@@ -50,6 +60,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(publisher);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpPut(Name = "UpdatePublisher")]
         public async Task<ActionResult<Publisher>> Put(Publisher publisher)
         {
@@ -67,6 +80,9 @@ namespace RestAPI.Controllers
             return new OkObjectResult(publisher);
         }
 
+        [Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [HttpDelete("{id}", Name = "DeletePublisher")]
         public async Task<ActionResult<Publisher>> Delete(int id)
         {
